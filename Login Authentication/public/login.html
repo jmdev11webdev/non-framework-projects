@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login</title>
+
+  <!-- Bootstrap CSS -->
+  <link
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+    rel="stylesheet"
+  >
+</head>
+<body class="container mt-5">
+
+  <h2 class="mb-4">Login</h2>
+
+  <!-- Message box -->
+  <div id="message" class="mb-3"></div>
+
+  <form id="loginForm">
+    <div class="mb-3">
+      <label class="form-label">Email</label>
+      <input
+        id="email"
+        type="email"
+        class="form-control"
+        placeholder="Input your email"
+        required
+      >
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label">Password</label>
+      <input
+        id="password"
+        type="password"
+        class="form-control"
+        placeholder="Input your password"
+        required
+      >
+    </div>
+
+    <button type="submit" class="btn btn-primary">Login</button>
+  </form>
+
+  <script>
+    const form = document.getElementById("loginForm");
+    const messageBox = document.getElementById("message");
+
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+
+      const email = document.getElementById("email").value;
+      const password = document.getElementById("password").value;
+
+      try {
+        const response = await fetch("/login", {
+        method: "POST",
+        credentials: "same-origin", // 👈 THIS IS THE KEY
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email, password }),
+        });
+
+        const data = await response.json();
+
+        if (data.success) {
+          messageBox.innerHTML = `
+            <div class="alert alert-success">
+              ${data.message}
+            </div>
+          `;
+
+            // Redirect after 1 second
+            setTimeout(() => {
+                window.location.href = "/dashboard.html";
+            }, 1000);
+
+        } else {
+          messageBox.innerHTML = `
+            <div class="alert alert-danger">
+              ${data.message}
+            </div>
+          `;
+        }
+      } catch (err) {
+        messageBox.innerHTML = `
+          <div class="alert alert-danger">
+            Something went wrong. Please try again.
+          </div>
+        `;
+        console.error(err);
+      }
+    });
+  </script>
+
+</body>
+</html>
