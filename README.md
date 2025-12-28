@@ -1,10 +1,3 @@
-Perfect 👍
-Let’s create a **clean, professional `README.md`** for your repo **`non-framework-projects`**, focused on the **new stack you just rebuilt and mastered**.
-
-You can **copy–paste everything below** into a file named `README.md` at the root of your repo.
-
----
-
 # 🚀 Non-Framework Projects
 
 This repository contains **non-framework, fundamentals-first projects** built to master **backend and frontend integration without modern JS frameworks**.
