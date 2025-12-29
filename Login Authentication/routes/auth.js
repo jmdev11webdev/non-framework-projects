@@ -6,9 +6,7 @@ const router = express.Router();
 
 const requireAuth = require("../middleware/requireAuth");
 
-/* =========================
-   REGISTER
-========================= */
+/* register */
 router.post("/register", async (req, res) => {
   try {
     const { username, email, password } = req.body;
@@ -40,9 +38,7 @@ router.post("/register", async (req, res) => {
   }
 });
 
-/* =========================
-   LOGIN
-========================= */
+/* login */
 router.post("/login", async (req, res) => {
   try {
     const { email, password } = req.body;
@@ -87,9 +83,7 @@ router.post("/login", async (req, res) => {
   }
 });
 
-/* =========================
-   LOGOUT  ✅ THIS IS THE PART YOU MISSED
-========================= */
+/* logout */
 router.post("/logout", (req, res) => {
   req.session.destroy(err => {
     if (err) {
@@ -107,9 +101,7 @@ router.post("/logout", (req, res) => {
   });
 });
 
-/* =========================
-   ME (PROTECTED)
-========================= */
+/* me (protected) */
 router.get("/me", requireAuth, (req, res) => {
   res.json({
     success: true,
